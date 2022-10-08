@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
 import 'package:medfarm/home/navigation/mydrawer.dart';
+import 'package:medfarm/home/screens/BMI/bmi.dart';
+
 import 'package:medfarm/home/screens/dashboard.dart';
 import 'package:medfarm/home/screens/doctorclinic.dart';
 import 'package:medfarm/home/screens/emergency.dart';
@@ -77,8 +79,9 @@ class _HomeState extends State<Home> {
           SpeedDialChild(
             onTap: () {
               setState(() {
-                currentTap = 2;
-                currentScreen = screens.elementAt(currentTap);
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> BMI(),
+                ));
+                
               });
             },
             child: Icon(
@@ -92,7 +95,7 @@ class _HomeState extends State<Home> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
         shape: const CircularNotchedRectangle(),
-        notchMargin: 10,
+        notchMargin: 5,
         // ignore: sized_box_for_whitespace
         child: Container(
           height: 60,

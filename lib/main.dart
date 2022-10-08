@@ -21,6 +21,7 @@ class Medfarm extends StatelessWidget {
         'home': (context) => const Home(),
         'login': (context) => const LoginPage(),
         'signup':(context) => const SignupPage(),
+        
       },
     ));
   }
