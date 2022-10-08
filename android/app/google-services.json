@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1050370322047",
+    "project_id": "medfarm-4155c",
+    "storage_bucket": "medfarm-4155c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1050370322047:android:8bec52690b69932bc2194a",
+        "android_client_info": {
+          "package_name": "com.example.medfarm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1050370322047-t02b2dt520p8qoviqoqn3fqi15b8agc9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCmbQMiNBugcEhpvI18brLfE0Q9SdjvbUg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1050370322047-t02b2dt520p8qoviqoqn3fqi15b8agc9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
