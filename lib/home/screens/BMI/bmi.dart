@@ -5,6 +5,8 @@ import 'dart:math';
 import 'package:medfarm/home/screens/BMI/bmi_result_screen.dart';
 
 class BMI extends StatefulWidget{
+  const BMI({Key? key}) : super(key: key);
+
   @override
   State createState() => _BMI();
 
@@ -336,7 +338,7 @@ void updateCal(bool isCal){
             
             child: MaterialButton(
               onPressed: () {
-                double result = weight / pow(height / 100, 2);
+                
                 // print(result.round());
                 // Navigator.push(
                 //     context,

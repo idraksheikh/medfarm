@@ -1,7 +1,7 @@
-import 'dart:ffi';
+
 
 import 'package:flutter/material.dart';
-import 'package:medfarm/home/home.dart';
+
 
 typedef BoolCallBack = void Function(bool isCalculated);
 
@@ -12,11 +12,11 @@ class BMIResultScreen extends StatelessWidget {
   final cal = true;
   final BoolCallBack onChanged;
 
-  BMIResultScreen(
-      {required this.result,
+   const BMIResultScreen(
+      {Key? key, required this.result,
       required this.age,
       required this.isMale,
-      required this.onChanged});
+      required this.onChanged}) : super(key: key);
  
   @override
   Widget build(BuildContext context) {

@@ -79,7 +79,7 @@ class _HomeState extends State<Home> {
           SpeedDialChild(
             onTap: () {
               setState(() {
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> BMI(),
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> const BMI(),
                 ));
                 
               });

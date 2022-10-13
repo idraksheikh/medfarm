@@ -42,6 +42,7 @@ dependencies:
   open_file_plus: ^3.3.0
   intl: ^0.17.0
   flutter_speed_dial: ^6.1.0+1
+  expansion_tile_card: ^2.0.0
   
 
 dev_dependencies:
