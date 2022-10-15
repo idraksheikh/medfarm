@@ -19,6 +19,14 @@ class _SignupPageState extends State<SignupPage> {
   TextEditingController dateCtl = TextEditingController();
   final _bg = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
   String? _selectedval = "A+";
+  String username='';
+  String password='';
+  String email='';
+  String address='';
+  int? mobile;
+  
+
+
 
   @override
   Widget build(BuildContext context) {

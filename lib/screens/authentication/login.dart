@@ -8,7 +8,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  String name = "";
+  String email = '';
+  String password ='';
   bool changestate = false;
   @override
   Widget build(BuildContext context) {
@@ -42,8 +43,10 @@ class _LoginPageState extends State<LoginPage> {
                         hintText: "Enter Username",
                         labelText: "Username"),
                     onChanged: (value) {
-                      name = value;
-                      setState(() {});
+                      
+                      setState(() {
+                        email=value;
+                      });
                     },
                   ),
                   const SizedBox(
@@ -57,7 +60,13 @@ class _LoginPageState extends State<LoginPage> {
                             borderRadius: BorderRadius.circular((10.0))),
                         hintText: "Enter Password",
                         labelText: "Password",
-                      ), 
+                        
+                      ),
+                      onChanged:(value){
+                          setState(() {
+                            password=value;
+                          });
+                        }, 
                       ),
                  const SizedBox(
                   height: 20,

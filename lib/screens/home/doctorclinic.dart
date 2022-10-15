@@ -1,21 +1,20 @@
 
 
-
 import 'package:flutter/material.dart';
 
-class Pharmacy extends StatefulWidget{
-  const Pharmacy({Key? key}) : super(key: key);
+class DoctorClinic extends StatefulWidget{
+  const DoctorClinic({Key? key}) : super(key: key);
 
   @override 
-  State createState()=> _Pharmacy();
+  State createState()=> _DoctorClinic();
 }
-class _Pharmacy extends State<Pharmacy>{
+class _DoctorClinic extends State<DoctorClinic>{
   @override
   Widget build(BuildContext context){
     return  Scaffold(
-      body:Center(
+       body:Center(
         child:      Text(
-        'Pharmacy',
+        'DoctorClinic',
         style: TextStyle(
           color: Colors.blue.shade600,
         ),

@@ -3,14 +3,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
-import 'package:medfarm/home/navigation/mydrawer.dart';
-import 'package:medfarm/home/screens/BMI/bmi.dart';
 
-import 'package:medfarm/home/screens/dashboard.dart';
-import 'package:medfarm/home/screens/doctorclinic.dart';
-import 'package:medfarm/home/screens/emergency.dart';
-import 'package:medfarm/home/screens/guide.dart';
-import 'package:medfarm/home/screens/pharmacy.dart';
+import 'package:medfarm/screens/home/BMI/bmi.dart';
+
+import 'package:medfarm/screens/home/dashboard.dart';
+import 'package:medfarm/screens/home/doctorclinic.dart';
+import 'package:medfarm/screens/home/emergency.dart';
+import 'package:medfarm/screens/home/guide.dart';
+import 'package:medfarm/screens/home/pharmacy.dart';
+import 'package:medfarm/screens/home/navigation/mydrawer.dart';
 
 // ignore: must_be_immutable
 class Home extends StatefulWidget {

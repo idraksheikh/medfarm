@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 // import 'package:medfarm/home/screens/BMI/bmi_result_screen.dart';
 import 'dart:math';
 
-import 'package:medfarm/home/screens/BMI/bmi_result_screen.dart';
+
+import 'package:medfarm/screens/home/BMI/bmi_result_screen.dart';
 
 class BMI extends StatefulWidget{
   const BMI({Key? key}) : super(key: key);
