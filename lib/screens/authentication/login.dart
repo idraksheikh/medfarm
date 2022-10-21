@@ -73,6 +73,7 @@ class _LoginPageState extends State<LoginPage> {
                  ),
                  InkWell(
                     onTap: () async {
+                      print('$email $password');
                       setState(() {
                         changestate = true;
                       });

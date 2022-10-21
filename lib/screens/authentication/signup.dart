@@ -24,6 +24,8 @@ class _SignupPageState extends State<SignupPage> {
   String email='';
   String address='';
   int? mobile;
+  String? date;
+  String? gender='Male';
   
 
 
@@ -57,6 +59,11 @@ class _SignupPageState extends State<SignupPage> {
                               borderRadius: BorderRadius.circular(10.0)),
                           hintText: "Enter Username",
                           labelText: "Username"),
+                          onChanged: ((val){
+                              setState(() {
+                                username=val;
+                              });
+                          }),
                     ),
                     const SizedBox(
                       height: 10.0,
@@ -69,6 +76,11 @@ class _SignupPageState extends State<SignupPage> {
                         hintText: "Enter Password",
                         labelText: "Password",
                       ),
+                      onChanged: ((val){
+                              setState(() {
+                                password=val;
+                              });
+                          }),
                     ),
                     const SizedBox(
                       height: 10.0,
@@ -79,6 +91,11 @@ class _SignupPageState extends State<SignupPage> {
                               borderRadius: BorderRadius.circular(10.0)),
                           hintText: "Enter email",
                           labelText: "Email"),
+                          onChanged: ((val){
+                              setState(() {
+                                email=val;
+                              });
+                          }),
                     ),
                     const SizedBox(
                       height: 10.0,
@@ -89,6 +106,11 @@ class _SignupPageState extends State<SignupPage> {
                               borderRadius: BorderRadius.circular(10.0)),
                           hintText: "Enter address",
                           labelText: "Address"),
+                          onChanged: ((val){
+                              setState(() {
+                                address=val;
+                              });
+                          }),
                     ),
                     const SizedBox(
                       height: 10.0,
@@ -136,6 +158,11 @@ class _SignupPageState extends State<SignupPage> {
                               borderRadius: BorderRadius.circular(10.0)),
                           hintText: "Enter Mobile Number",
                           labelText: "Mobile Number"),
+                          onChanged: ((val){
+                              setState(() {
+                                mobile=int.parse(val);
+                              });
+                          }),
                     ),
                     const SizedBox(
                       height: 20.0,
@@ -159,6 +186,7 @@ class _SignupPageState extends State<SignupPage> {
                           setState(() {
                             dateCtl.text =
                                 DateFormat('dd-MM-yyyy').format(pickeddate);
+                                date=dateCtl.text;
                           });
                         }
                       },
@@ -179,9 +207,18 @@ class _SignupPageState extends State<SignupPage> {
                             tileColor: Colors.blue.shade500,
                             title: Text(Gender.Male.name),
                             onChanged: (val) {
-                              setState(() {
-                                _gender = val;
+                              _gender=val;
+                              if(val==Gender.Male){
+                                  setState(() {
+                                gender='Male';
                               });
+                              }
+                              else{
+                                setState(() {
+                                gender='Female';
+                              });
+                              }
+                              
                             },
                           ),
                         ),
@@ -197,9 +234,20 @@ class _SignupPageState extends State<SignupPage> {
                                 borderRadius: BorderRadius.circular(5.0)),
                             tileColor: Colors.blue.shade500,
                             onChanged: (val) {
-                              setState(() {
-                                _gender = val;
+                              _gender=val;
+                              if(val==Gender.Male){
+                                  setState(() {
+                                    
+                                gender='Male';
                               });
+                              }
+                              else{
+                                setState(() {
+                                  
+                                gender='Female';
+                              });
+                              }
+                              
                             },
                           ),
                         ),
@@ -210,6 +258,9 @@ class _SignupPageState extends State<SignupPage> {
                     ),
                     InkWell(
                       onTap: () {
+                        print(
+                          '{$username , $gender , $_selectedval , $email , $address , $password , $date , $mobile}'
+                        );
                         Navigator.of(context).pushNamed("login");
                       },
                       child: Container(
