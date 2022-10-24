@@ -258,7 +258,7 @@ class _SignupPageState extends State<SignupPage> {
                     ),
                     InkWell(
                       onTap: () {
-                        print(
+                        debugPrint(
                           '{$username , $gender , $_selectedval , $email , $address , $password , $date , $mobile}'
                         );
                         Navigator.of(context).pushNamed("login");

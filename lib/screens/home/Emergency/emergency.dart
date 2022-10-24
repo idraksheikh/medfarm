@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'location.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -11,76 +11,6 @@ Future<Location> fetchLocation() async {
     return Location.fromJson(jsonDecode(response.body));
   } else {
     throw Exception('Failed to load Location');
-  }
-}
-
-class Location {
-  List<Features>? features;
-
-  Location({this.features});
-
-  Location.fromJson(Map<String, dynamic> json) {
-    if (json['features'] != null) {
-      features = <Features>[];
-      json['features'].forEach((v) {
-        features!.add(Features.fromJson(v));
-      });
-    }
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-
-    if (features != null) {
-      data['features'] = features!.map((v) => v.toJson()).toList();
-    }
-
-    return data;
-  }
-}
-
-class Features {
-  Geometry? geometry;
-
-  Features({this.geometry});
-
-  Features.fromJson(Map<String, dynamic> json) {
-    geometry =
-        json['geometry'] != null ? Geometry.fromJson(json['geometry']) : null;
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-
-    if (geometry != null) {
-      data['geometry'] = geometry!.toJson();
-    }
-    return data;
-  }
-}
-
-class Geometry {
-  List<List>? coordinates;
-
-  Geometry({this.coordinates});
-
-  Geometry.fromJson(Map<String, dynamic> json) {
-    if (json['coordinates'] != null) {
-      coordinates = <List>[];
-      json['coordinates'].forEach((v) {
-        coordinates!.add(v);
-      });
-    }
-   
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    if (coordinates != null) {
-      data['coordinates'] = coordinates!.map((v) => v).toList();
-    }
-    
-    return data;
   }
 }
 

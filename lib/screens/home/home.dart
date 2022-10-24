@@ -4,13 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
 
+
 import 'package:medfarm/screens/home/BMI/bmi.dart';
+import 'package:medfarm/screens/home/Emergency/polyline.dart';
 
 import 'package:medfarm/screens/home/dashboard.dart';
 import 'package:medfarm/screens/home/doctorclinic.dart';
-import 'package:medfarm/screens/home/emergency.dart';
+// import 'package:medfarm/screens/home/Emergency/emergency.dart';
 import 'package:medfarm/screens/home/guide.dart';
-import 'package:medfarm/screens/home/pharmacy.dart';
+import 'package:medfarm/screens/home/Pharmacy/pharmacypage.dart';
 import 'package:medfarm/screens/home/navigation/mydrawer.dart';
 
 // ignore: must_be_immutable
@@ -22,10 +24,11 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int currentTap = 0;
+  
   final List<Widget> screens = <Widget>[
     const DashBoard(),
-    const Pharmacy(),
-    const EmergencyCase(),
+    const PharmacyPage(),
+    const PolylinePage(),
     const DoctorClinic(),
     const GuidePage()
   ];
