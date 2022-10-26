@@ -17,13 +17,15 @@ import 'package:medfarm/screens/home/navigation/mydrawer.dart';
 
 // ignore: must_be_immutable
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+  int forTap;
+   Home({Key? key,required this.forTap}) : super(key: key);
   @override
-  State createState() => _HomeState();
+  State createState() => _HomeState(forTap);
 }
 
 class _HomeState extends State<Home> {
   int currentTap = 0;
+
   
   final List<Widget> screens = <Widget>[
     const DashBoard(),
@@ -32,11 +34,22 @@ class _HomeState extends State<Home> {
     const DoctorClinic(),
     const GuidePage()
   ];
+  
   Widget currentScreen = const DashBoard();
   PageStorageBucket bucket = PageStorageBucket();
 
   ValueNotifier<bool> isDialOpen = ValueNotifier(false);
-
+  int forTap;
+  _HomeState( this.forTap);
+  
+   @override
+  void initState() {
+    super.initState();
+    setState(() {
+      currentTap=forTap;
+      currentScreen=screens.elementAt(currentTap);
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

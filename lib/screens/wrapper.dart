@@ -15,7 +15,7 @@ class Wrapper extends StatelessWidget{
       home: const LoginPage(),
       routes: {
         'doctorregistration': (context) => const DoctorRegistrationPage(),
-        'home': (context) => const Home(),
+        'home': (context) =>  Home(forTap: 0,),
         'login': (context) => const LoginPage(),
         'signup':(context) => const SignupPage(),
         

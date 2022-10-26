@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:medfarm/screens/home/home.dart';
+
+
+// import 'package:medfarm/screens/home/home.dart';
 
 class DashBoard extends StatefulWidget {
   const DashBoard({Key? key}) : super(key: key);
@@ -56,7 +60,7 @@ class _DashBoard extends State<DashBoard> {
                           borderRadius:
                               const BorderRadius.all(Radius.circular(10)),
                           color: Colors.white.withOpacity(0.5)),
-                      child: Image.asset('lib/images/bloodpres.jpeg')),
+                      child: Image.asset('lib/images/medicine.jpeg')),
                   Positioned(
                       top: 6,
                       left: 110,
@@ -105,7 +109,14 @@ class _DashBoard extends State<DashBoard> {
                 children: [
                   const SizedBox(),
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                     Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Home(forTap:1)
+                      ),
+                    );
+                    },
                     child: Container(
                       alignment: Alignment.center,
                       height: MediaQuery.of(context).size.height * 0.25,
@@ -133,7 +144,14 @@ class _DashBoard extends State<DashBoard> {
                     width: 20,
                   ),
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                     Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Home(forTap:3)
+                      ),
+                    );
+                    },
                     child: Container(
                       alignment: Alignment.center,
                       height: MediaQuery.of(context).size.height * 0.25,
@@ -163,6 +181,14 @@ class _DashBoard extends State<DashBoard> {
                 height: 20,
               ),
               InkWell(
+                onTap: (){
+                 Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Home(forTap:4)
+                      ),
+                    );
+                },
                 child: Container(
                   alignment: Alignment.center,
                   height: MediaQuery.of(context).size.height * 0.15,

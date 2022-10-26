@@ -3,6 +3,7 @@ import 'dart:convert';
 import './medicine.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart';
 
 class PharmacyPage extends StatefulWidget {
   const PharmacyPage({super.key});
@@ -116,13 +117,13 @@ class _PharmacyPage extends State<PharmacyPage> {
                                   return Column(
                                     children: card
                                         .map((e) => Card(
-                                              shadowColor: Colors.blue.shade600,
+                                              shadowColor: Colors.black26,
                                               elevation: 5,
                                               margin: const EdgeInsets.only(
                                                   top: 10, bottom: 10),
                                               shape: RoundedRectangleBorder(
-                                                side:  BorderSide(
-                                                  color: Colors.blue.shade500,
+                                                side:  const BorderSide(
+                                                  color: Colors.black,
                                                 ),
                                                 borderRadius:
                                                     BorderRadius.circular(5),
@@ -135,7 +136,7 @@ class _PharmacyPage extends State<PharmacyPage> {
                                                 decoration:  BoxDecoration(
                                                   // borderRadius:
                                                   //     BorderRadius.circular(30),
-                                                   color: Colors.blue.shade50,
+                                                   color: Colors.grey.shade100.withOpacity(0.8),
                                                 ),
                                                 child: Column(children: [
                                                   Row(children: [
@@ -166,9 +167,9 @@ class _PharmacyPage extends State<PharmacyPage> {
                                                       child: Text(
                                                         '${snapshot.data!.results![e].name}',
                                                         maxLines: 2,
-                                                        style: TextStyle(
+                                                        style: const  TextStyle(
                                                           color: Colors
-                                                              .blue.shade600,
+                                                              .black,
                                                           fontSize: 16,
                                                           fontWeight:
                                                               FontWeight.bold,
@@ -179,7 +180,11 @@ class _PharmacyPage extends State<PharmacyPage> {
                                                   Row(
                                                     children: [
                                                       InkWell(
-                                                        onTap: () {},
+                                                        onTap: () async {
+                                                          if(await launchUrl(Uri.parse('https://www.amazon.in/s?k=${snapshot.data!.results![e].name}&i=amazon-pharmacy'))){
+                                                              throw "could not able to launch url 'https://www.amazon.in/s?k=${snapshot.data!.results![e].name}&i=amazon-pharmacy'";
+                                                          }
+                                                        },
                                                         child: Container(
                                                             margin:
                                                                 const EdgeInsets
@@ -191,8 +196,7 @@ class _PharmacyPage extends State<PharmacyPage> {
                                                             decoration:
                                                                 BoxDecoration(
                                                                   borderRadius: BorderRadius.circular(5),
-                                                              color: Colors.blue
-                                                                  .shade700,
+                                                              color: Colors.black,
                                                             ),
                                                             child: const Center(
                                                               child: Text(
@@ -212,9 +216,9 @@ class _PharmacyPage extends State<PharmacyPage> {
                                                         child: Text(
                                                           'Price : ₹ ${snapshot.data!.results![e].price}',
                                                           maxLines: 1,
-                                                          style: TextStyle(
+                                                          style: const TextStyle(
                                                             color: Colors
-                                                                .blue.shade600,
+                                                                .black,
                                                             fontWeight:
                                                                 FontWeight.bold,
                                                           ),

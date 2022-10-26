@@ -83,7 +83,7 @@ class _PolylinePageState extends State<PolylinePage> {
       metaData="Searching Neaby Hospital";
     });
     final response = await http.get(Uri.parse(
-        'https://api.geoapify.com/v2/places?categories=healthcare.hospital&filter=circle:${pos.longitude},${pos.latitude},1000&bias=proximity:75.8837625,22.6639669&limit=1&apiKey=bcd7fb5652cd4bc9ad3f84db8378fe5a'));
+        'https://api.geoapify.com/v2/places?categories=healthcare.hospital&bias=proximity:${pos.longitude},${pos.latitude}&limit=1&apiKey=bcd7fb5652cd4bc9ad3f84db8378fe5a'));
 
     if (response.statusCode == 200) {
       setState(() {
