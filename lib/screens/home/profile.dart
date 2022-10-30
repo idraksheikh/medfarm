@@ -1,4 +1,5 @@
 // import 'package:flutter/cupertino.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'doctor_registration.dart';
 class ProfilePage extends StatefulWidget{
@@ -8,8 +9,10 @@ class ProfilePage extends StatefulWidget{
   State createState()=> _ProfilePage();
 }
 class _ProfilePage extends State<ProfilePage>{
+  
   @override
   Widget build(BuildContext context){
+    
     return const Scaffold(
       
       

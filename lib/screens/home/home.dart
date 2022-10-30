@@ -18,15 +18,17 @@ import 'package:medfarm/screens/home/navigation/mydrawer.dart';
 // ignore: must_be_immutable
 class Home extends StatefulWidget {
   int forTap;
-   Home({Key? key,required this.forTap}) : super(key: key);
+  late String? uid;
+   Home({Key? key,required this.forTap,this.uid}) : super(key: key);
   @override
-  State createState() => _HomeState(forTap);
+  // ignore: no_logic_in_create_state
+  State createState() => _HomeState(forTap,uid);
 }
 
 class _HomeState extends State<Home> {
   int currentTap = 0;
 
-  
+
   final List<Widget> screens = <Widget>[
     const DashBoard(),
     const PharmacyPage(),
@@ -40,7 +42,8 @@ class _HomeState extends State<Home> {
 
   ValueNotifier<bool> isDialOpen = ValueNotifier(false);
   int forTap;
-  _HomeState( this.forTap);
+  late String? uid;
+  _HomeState( this.forTap,this.uid);
   
    @override
   void initState() {
@@ -48,16 +51,18 @@ class _HomeState extends State<Home> {
     setState(() {
       currentTap=forTap;
       currentScreen=screens.elementAt(currentTap);
+      print(uid);
     });
   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+       resizeToAvoidBottomInset: false,
       body: PageStorage(
         bucket: bucket,
         child: currentScreen,
       ),
-      drawer: const MyDrawer(),
+      drawer:  MyDrawer(),
 
       // floatingActionButton: FloatingActionButton(
       //   child: const Icon(Icons.add),

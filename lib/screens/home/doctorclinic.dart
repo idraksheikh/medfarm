@@ -13,6 +13,7 @@ class _DoctorClinic extends State<DoctorClinic> {
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
+       resizeToAvoidBottomInset: false,
       backgroundColor: Theme.of(context).primaryColor,
       appBar: AppBar(
         elevation: 0.0,
@@ -38,6 +39,10 @@ class _DoctorClinic extends State<DoctorClinic> {
                height: 40,
               width: 40,
               margin: const EdgeInsets.only(right: 10),
+              
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50),
+              ),
               child: Image.asset("lib/images/medicine.jpeg"),
             ),
           )
@@ -150,9 +155,11 @@ class _DoctorClinic extends State<DoctorClinic> {
                 margin: const EdgeInsets.only(top: 20, left: 20),
                 child: ListView(
                   scrollDirection: Axis.horizontal,
+                  
                   children: [
                     demoCategories(
-                        "lib/images/tooth.png", "Tooth", "10 doctors"),
+                        "lib/images/tooth.png", "Tooth", "10 doctors",
+                        ),
                     demoCategories(
                         "lib/images/brain.png", "Brain", "10 doctors"),
                     demoCategories(
@@ -199,15 +206,12 @@ class _DoctorClinic extends State<DoctorClinic> {
                   child: ListView(
                     children: [
                       demoTopRatedDr("lib/images/heart.jpeg",
-                          "Dr. Gupreet Faltu", "Pagle Doctor", "5"),
+                          "Dr. Gupreet Singh", "MD Physician", "5"),
                       demoTopRatedDr("lib/images/heart.jpeg",
-                          "Dr. Gupreet Faltu", "Pagle Doctor", "5"),
+                          "Dr. Ashwin Khale", "Nephrologist", "5"),
                       demoTopRatedDr("lib/images/heart.jpeg",
-                          "Dr. Gupreet Faltu", "Pagle Doctor", "5"),
-                      demoTopRatedDr("lib/images/heart.jpeg",
-                          "Dr. Gupreet Faltu", "Pagle Doctor", "5"),
-                      demoTopRatedDr("lib/images/heart.jpeg",
-                          "Dr. Gupreet Faltu", "Pagle Doctor", "5"),
+                          "Dr. Abdul ", "MD Physician", "5"),
+                     
                     ],
                   ),
                 ),
@@ -222,7 +226,7 @@ class _DoctorClinic extends State<DoctorClinic> {
       margin: const EdgeInsets.only(right: 15),
       width: 100,
       decoration: BoxDecoration(
-        color: Color(0xff107163),
+        color:Colors.blue.shade800,
         borderRadius: BorderRadius.circular(10),
       ),
       child: Column(

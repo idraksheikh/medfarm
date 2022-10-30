@@ -1,26 +1,46 @@
-// ignore_for_file: file_names
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import './authentication/login.dart';
-import './authentication/signup.dart';
+import 'package:medfarm/screens/authentication/authenticate.dart';
+import 'package:provider/provider.dart';
 import './home/doctor_registration.dart';
 import './home/home.dart';
+
+
 class Wrapper extends StatelessWidget{
   const Wrapper({Key? key}) : super(key: key);
-
+  
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    final user=context.watch<User?>();
+    
+    if(user==null){
+      return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const LoginPage(),
+      // ignore: unrelated_type_equality_checks
+      home: const Authenticate(),
       routes: {
         'doctorregistration': (context) => const DoctorRegistrationPage(),
         'home': (context) =>  Home(forTap: 0,),
-        'login': (context) => const LoginPage(),
-        'signup':(context) => const SignupPage(),
+        
         
       },
     );
+    }else{
+      print(user.uid.toString());
+      
+      return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      // ignore: unrelated_type_equality_checks
+      home:Home(forTap: 0,uid:user.uid.toString()),
+      routes: {
+        'doctorregistration': (context) => const DoctorRegistrationPage(),
+        'home': (context) =>  Home(forTap: 0,),
+        
+        
+      },
+    );
+    }
+    
     
   }
 }

@@ -1,12 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:medfarm/services/auth.dart';
 
 class MyDrawer extends StatelessWidget {
-  const MyDrawer({Key? key}) : super(key: key);
-
+  final AuthService _auth=AuthService();
+   MyDrawer({Key? key}) : super(key: key);
+  
   @override
   Widget build(BuildContext context) {
-    const imgurl = "https://statinfer.com/front-page/dummy-user/";
+    
 
     return Drawer(
       child: Container(
@@ -20,7 +22,7 @@ class MyDrawer extends StatelessWidget {
                   accountName: Text("Ashwin Khale"),
                   accountEmail: Text("ashwinkhale09@gmail.com"),
                   currentAccountPicture: CircleAvatar(
-                    backgroundImage: NetworkImage(imgurl),
+                    backgroundImage: AssetImage('lib/images/dummy-user.jpg'),
                   ),
                 )),
             ListTile(
@@ -53,7 +55,9 @@ class MyDrawer extends StatelessWidget {
               ),
             ),
             ListTile(
-              onTap: ((){}),
+              onTap: (()async{
+                await _auth.signOut();
+              }),
               leading: const Icon(
                 CupertinoIcons.mail,
                 color: Colors.white,
