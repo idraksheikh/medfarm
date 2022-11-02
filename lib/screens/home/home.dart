@@ -1,5 +1,7 @@
 // ignore_for_file: unnecessary_brace_in_string_interps
 
+// import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
@@ -14,20 +16,23 @@ import 'package:medfarm/screens/home/doctorclinic.dart';
 import 'package:medfarm/screens/home/guide.dart';
 import 'package:medfarm/screens/home/Pharmacy/pharmacypage.dart';
 import 'package:medfarm/screens/home/navigation/mydrawer.dart';
+import 'package:medfarm/services/profile.dart';
+
+import '../../services/model/user.dart';
 
 // ignore: must_be_immutable
 class Home extends StatefulWidget {
   int forTap;
-  late String? uid;
-   Home({Key? key,required this.forTap,this.uid}) : super(key: key);
+   
+   Home({Key? key,required this.forTap}) : super(key: key);
   @override
   // ignore: no_logic_in_create_state
-  State createState() => _HomeState(forTap,uid);
+  State createState() => _HomeState(forTap);
 }
 
 class _HomeState extends State<Home> {
   int currentTap = 0;
-
+  final ProfileService _profile= ProfileService();
 
   final List<Widget> screens = <Widget>[
     const DashBoard(),
@@ -42,27 +47,34 @@ class _HomeState extends State<Home> {
 
   ValueNotifier<bool> isDialOpen = ValueNotifier(false);
   int forTap;
-  late String? uid;
-  _HomeState( this.forTap,this.uid);
+   
+  _HomeState( this.forTap);
+
   
+    
    @override
   void initState() {
     super.initState();
     setState(() {
+    
       currentTap=forTap;
       currentScreen=screens.elementAt(currentTap);
-      print(uid);
+      
+      
     });
   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
+      drawerEnableOpenDragGesture: true,
        resizeToAvoidBottomInset: false,
       body: PageStorage(
         bucket: bucket,
         child: currentScreen,
       ),
       drawer:  MyDrawer(),
+      
 
       // floatingActionButton: FloatingActionButton(
       //   child: const Icon(Icons.add),
@@ -234,4 +246,5 @@ class _HomeState extends State<Home> {
       ),
     );
   }
+ 
 }

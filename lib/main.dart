@@ -93,13 +93,15 @@ import 'package:medfarm/screens/Wrapper.dart';
 import 'package:medfarm/services/auth.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
+    
   runApp(const Medfarm());
 }
-
 class Medfarm extends StatelessWidget {
   const Medfarm({Key? key}) : super(key: key);
+  
 
   @override
   Widget build(BuildContext context) {

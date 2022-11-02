@@ -3,14 +3,28 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import './model/user.dart';
 class ProfileService {
-  Future showProfile(String uid)async{
+  late UserData userData;
+  
+  Future showProfile(String? email)async{
     try {
-        DocumentSnapshot<Map<String, dynamic>> res=await FirebaseFirestore.instance.collection('user').doc(uid).get();
-        UserData userData=UserData.fromJson(jsonDecode(res[0]));   
-        return userData;
-    } catch (e) {
-      return e.toString();
+      var documentList= FirebaseFirestore.instance.collection('users');
       
+        await documentList.where("email",isEqualTo: email).get().then((snapshot){
+          
+          print(snapshot.docs[0].data());
+          userData=UserData.fromJson(snapshot.docs[0].data());
+        
+        });
+        
+        return userData;
+        
+    }on FirebaseException catch (e) {
+      print(e.code);
+      return e.toString();      
+    }catch(e){
+      print(e);
+      return e.toString();
+
     }
     
 

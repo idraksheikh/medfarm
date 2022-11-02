@@ -60,7 +60,7 @@ class _DoctorClinic extends State<DoctorClinic> {
               Container(
                 margin: const EdgeInsets.only(top: 20, left: 20),
                 child: const Text(
-                  "Hi Ashwin",
+                  "Hi  ",
                   style: TextStyle(
                     color: Color(0xff363636),
                     fontSize: 25,
