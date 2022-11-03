@@ -3,19 +3,20 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:medfarm/screens/authentication/ForgotPassword.dart';
+import 'package:medfarm/screens/wrapper.dart';
 import 'package:medfarm/services/auth.dart';
 
-typedef changeScreen = void Function();
 
-class LoginPage extends StatefulWidget {
-  final changeScreen onHarkt;
 
-  const LoginPage({Key? key, required this.onHarkt}) : super(key: key);
+class DeleteAccount extends StatefulWidget {
+
+
+  const DeleteAccount({Key? key}) : super(key: key);
   @override
-  State<LoginPage> createState() => _LoginPageState(onHarkt);
+  State<DeleteAccount> createState() => _DeleteAccountState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _DeleteAccountState extends State<DeleteAccount> {
   String email = '';
   String password = '';
   bool changestate = false;
@@ -23,16 +24,16 @@ class _LoginPageState extends State<LoginPage> {
   bool _showlogbutton = true;
   String error = '';
   bool errorOcr = false;
-  changeScreen onHarkt;
+  
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
-  
+  late TextEditingController _passController;
 
-  _LoginPageState(this.onHarkt);
+  
   @override
   void initState() {
     super.initState();
-    
+    _passController = TextEditingController(text: '');
   }
 
   @override
@@ -116,15 +117,7 @@ class _LoginPageState extends State<LoginPage> {
                    const SizedBox(
                     height: 10.0,
                   ),
-                  InkWell(
-                      child: const Text("Forget Password ?",
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.blue,
-                          )),
-                      onTap: () {
-                        Navigator.push(context,MaterialPageRoute(builder: (context)=>const ForgotPassword()));
-                      }),
+                 
 
                   const SizedBox(
                     height: 20,
@@ -139,7 +132,11 @@ class _LoginPageState extends State<LoginPage> {
                                 _showlogbutton = false;
                               });
                               dynamic result =
-                                  await _auth.login(email, password);
+                                  await _auth.deleteAccount(email, password);
+
+                                  
+                                  
+
 
                               switch (result) {
                                 case 'invalid-email':
@@ -187,6 +184,9 @@ class _LoginPageState extends State<LoginPage> {
                                     SnackBar(content: Text(error)),
                                   );
                                   break;
+                                case 'Delete':
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => Wrapper()));
+                                break;
                                 default:
                                 
                               }
@@ -195,18 +195,18 @@ class _LoginPageState extends State<LoginPage> {
                           child: AnimatedContainer(
                             alignment: Alignment.center,
                             duration: const Duration(seconds: 1),
-                            width: changestate ? 50 : 130,
+                            width:200,
                             height: 40,
                             // ignore: sort_child_properties_last
                             child: changestate
                                 ? const Icon(Icons.done)
-                                : const Text("LOGIN",
+                                : const Text("DELETE ACCOUNT",
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 20,
                                         color: Colors.white)),
                             decoration: BoxDecoration(
-                                color: Colors.blue.shade600,
+                                color: Colors.red.shade400,
                                 borderRadius: BorderRadius.circular(
                                     changestate ? 50 : 8)),
                           ),
@@ -223,17 +223,7 @@ class _LoginPageState extends State<LoginPage> {
                   const SizedBox(
                     height: 10.0,
                   ),
-                  InkWell(
-                      child: const Text("Don't have account? SignUp",
-                          style: TextStyle(
-                            fontSize: 17,
-                            color: Colors.blue,
-                          )),
-                      onTap: () {
-                        setState(() {
-                          onHarkt();
-                        });
-                      }),
+                  
                 ]),
               ),
             ),

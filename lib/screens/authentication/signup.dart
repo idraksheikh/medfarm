@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_pw_validator/flutter_pw_validator.dart';
 import 'package:email_validator/email_validator.dart';
-import 'package:medfarm/screens/authentication/login.dart';
+
 import 'package:medfarm/services/auth.dart';
 
 // import 'package:tut1/utils/routes.dart';
@@ -449,7 +449,7 @@ class _SignupPageState extends State<SignupPage> {
                       const SizedBox(
                         height: 10.0,
                       ),
-                      Text('$error'),
+                      Text(error),
                     ],
                   ),
                 ),

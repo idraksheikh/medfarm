@@ -1,5 +1,4 @@
 import 'dart:async';
-// import 'package:fl_location/fl_location.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -9,7 +8,7 @@ import 'package:flutter_map/plugin_api.dart';
 import 'package:flutter_map_line_editor/polyeditor.dart';
 import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
 import 'package:medfarm/screens/home/Emergency/hosplocation.dart';
-
+import 'package:flutter_map_marker_popup/flutter_map_marker_popup.dart';
 import './location.dart';
 import 'package:geolocator/geolocator.dart';
 
@@ -27,7 +26,8 @@ class PolylinePage extends StatefulWidget {
 
 class _PolylinePageState extends State<PolylinePage> {
   late PolyEditor polyEditor;
-  late Future<Location> futureLocation;
+  late Future<GetLocation> futureLocation;
+  late Future<HospLocation> futureHospitalLocation;
   late List<LatLng> polylineCoordinates = [];
   late List<Features> locate;
   late bool navigationMode;
@@ -36,23 +36,19 @@ class _PolylinePageState extends State<PolylinePage> {
   late TurnOnHeadingUpdate _turnOnHeadingUpdate;
   late StreamController<double?> _centerCurrentLocationStreamController;
   late StreamController<void> _turnHeadingUpStreamController;
-  String metaData='Fetching your Location';
+  String metaData = 'Fetching your Location';
   bool getlatlng = false;
   Position? pos;
 
   Future<Position> _determinePosition() async {
-    bool serviceEnabled;
     LocationPermission permission;
 
     setState(() {
-      
-      metaData=metaData;
+      metaData = metaData;
     });
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      return Future.error('Location services are disabled.');
-    }
-
+    // if (!serviceEnabled) {
+    //   return Future.error('Location services are disabled.');
+    // }
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
@@ -66,6 +62,7 @@ class _PolylinePageState extends State<PolylinePage> {
           'Location permissions are permanently denied, we cannot request permissions.');
     }
     pos = await Geolocator.getCurrentPosition();
+    futureHospitalLocation = _hospitalNear(pos!);
     futureLocation = fetchLocation(pos!, await _hospitalNear(pos!));
 
     setState(() {
@@ -79,15 +76,14 @@ class _PolylinePageState extends State<PolylinePage> {
 
   Future<HospLocation> _hospitalNear(Position pos) async {
     setState(() {
-      
-      metaData="Searching Neaby Hospital";
+      metaData = "Searching Neaby Hospital";
     });
     final response = await http.get(Uri.parse(
         'https://api.geoapify.com/v2/places?categories=healthcare.hospital&bias=proximity:${pos.longitude},${pos.latitude}&limit=1&apiKey=bcd7fb5652cd4bc9ad3f84db8378fe5a'));
 
     if (response.statusCode == 200) {
       setState(() {
-        metaData="Hospital Location Recived";
+        metaData = "Hospital Location Recived";
       });
       return HospLocation.fromJson(jsonDecode(response.body));
     } else {
@@ -95,23 +91,23 @@ class _PolylinePageState extends State<PolylinePage> {
     }
   }
 
-  Future<Location> fetchLocation(Position pos, HospLocation hospos) async {
+  Future<GetLocation> fetchLocation(Position pos, HospLocation hospos) async {
     double lat = pos.latitude;
     double long = pos.longitude;
     // print(pos.latitude);
     setState(() {
-      metaData="Fetching map";
+      metaData = "Fetching map";
     });
     final response = await http.get(Uri.parse(
         'https://api.openrouteservice.org/v2/directions/driving-car?api_key=5b3ce3597851110001cf6248b042fdf069484904a8d48e459ae7ad7c&start=$long,$lat&end=${hospos.features![0].geometry!.coordinates![0]},${hospos.features![0].geometry!.coordinates![1]}'));
 
     if (response.statusCode == 200) {
       setState(() {
-        locate = Location.fromJson(jsonDecode(response.body)).features!;
+        locate = GetLocation.fromJson(jsonDecode(response.body)).features!;
         // print(locate);
       });
       drawStrava();
-      return Location.fromJson(jsonDecode(response.body));
+      return GetLocation.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('Failed to load Location');
     }
@@ -125,9 +121,15 @@ class _PolylinePageState extends State<PolylinePage> {
       borderStrokeWidth: 5,
       points: []);
 
-  Future drawStrava() async {
-    
+// List<Polyline> dottedPolyLines = [];
+//   var dotted = Polyline(
+//       color: Colors.blue.shade700,
+//       borderColor: Colors.blue.shade900,
+//       strokeWidth: 15,
+//       borderStrokeWidth: 5,
+//       points: []);
 
+  Future drawStrava() async {
     if (locate.isNotEmpty) {
       for (var point in locate[0].geometry!.coordinates!) {
         setState(() {
@@ -179,103 +181,131 @@ class _PolylinePageState extends State<PolylinePage> {
           borderRadius: BorderRadius.vertical(top: Radius.circular(10)),
         ),
         child: getlatlng
-        ?FutureBuilder<Location>(
-            future: futureLocation,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return FlutterMap(
-                  options: MapOptions(
-                    absorbPanEventsOnScrollables: false,
-                    onTap: (_, ll) {
-                      polyEditor.add(testPolyline.points, ll);
-                    },
-                    center: LatLng(22.7355, 75.9074),
-                    zoom: 14,
-                    maxZoom: 19,
-                    onPointerDown: _onPointerDown,
-                    onPointerUp: _onPointerUp,
-                    onPointerCancel: _onPointerUp,
-                  ),
-                  // ignore: sort_child_properties_last
-                  children: [
-                    TileLayer(
-                        urlTemplate:
-                            'https://api.mapbox.com/styles/v1/gurpreetachint/cl5rvxqts00i214rznevk6ick/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiZ3VycHJlZXRhY2hpbnQiLCJhIjoiY2wwMTl0ZjhzMDI2YzNscGEybXQ2MnNvbiJ9.aNZsNi-jXP_wVCH47oNXzQ',
-                        subdomains: const ['a', 'b', 'c']),
-                    PolylineLayer(polylines: polyLines),
-                    // DragMarkers(markers: polyEditor.edit()),
-                    CurrentLocationLayer(
-                      centerCurrentLocationStream:
-                          _centerCurrentLocationStreamController.stream,
-                      turnHeadingUpLocationStream:
-                          _turnHeadingUpStreamController.stream,
-                      centerOnLocationUpdate: _centerOnLocationUpdate,
-                      turnOnHeadingUpdate: _turnOnHeadingUpdate,
-                      style: const LocationMarkerStyle(
-                        marker: DefaultLocationMarker(
-                          child: Icon(
-                            Icons.navigation,
-                            color: Colors.white,
+            ? FutureBuilder<GetLocation>(
+                future: futureLocation,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return FlutterMap(
+                      options: MapOptions(
+                        absorbPanEventsOnScrollables: false,
+                        onTap: (_, ll) {
+                          polyEditor.add(testPolyline.points, ll);
+                        },
+                        center: LatLng(pos!.latitude, pos!.longitude),
+                        zoom: 16,
+                        maxZoom: 18.3,
+                        onPointerDown: _onPointerDown,
+                        onPointerUp: _onPointerUp,
+                        onPointerCancel: _onPointerUp,
+                      ),
+                      // ignore: sort_child_properties_last
+                      children: [
+                        TileLayer(
+                            urlTemplate:
+                                'https://api.mapbox.com/styles/v1/gurpreetachint/cl5rvxqts00i214rznevk6ick/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiZ3VycHJlZXRhY2hpbnQiLCJhIjoiY2wwMTl0ZjhzMDI2YzNscGEybXQ2MnNvbiJ9.aNZsNi-jXP_wVCH47oNXzQ',
+                            subdomains: const ['a', 'b', 'c']),
+                        FutureBuilder<HospLocation>(
+                          future: futureHospitalLocation,
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              return PopupMarkerLayerWidget(
+                                options: PopupMarkerLayerOptions(
+                                  markers: <Marker>[
+                                    Marker(
+                                      point: LatLng(
+                                          snapshot.data!.features![0].geometry!
+                                              .coordinates![1],
+                                          snapshot.data!.features![0].geometry!
+                                              .coordinates![0]),
+                                      builder: (BuildContext ctx) => Icon(
+                                        Icons.local_hospital,
+                                        color: Colors.blue.shade400,
+                                        size: 30,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          },
+                        ),
+
+                        PolylineLayer(polylines: polyLines),
+                        // DragMarkers(markers: polyEditor.edit()),
+                        CurrentLocationLayer(
+                          centerCurrentLocationStream:
+                              _centerCurrentLocationStreamController.stream,
+                          turnHeadingUpLocationStream:
+                              _turnHeadingUpStreamController.stream,
+                          centerOnLocationUpdate: _centerOnLocationUpdate,
+                          turnOnHeadingUpdate: _turnOnHeadingUpdate,
+                          style: const LocationMarkerStyle(
+                            marker: DefaultLocationMarker(
+                              child: Icon(
+                                Icons.navigation,
+                                color: Colors.white,
+                              ),
+                            ),
+                            markerSize: Size(40, 40),
+                            markerDirection: MarkerDirection.heading,
                           ),
                         ),
-                        markerSize: Size(40, 40),
-                        markerDirection: MarkerDirection.heading,
-                      ),
-                    ),
-                  ],
-                  nonRotatedChildren: [
-                    Positioned(
-                      right: 20,
-                      bottom: 20,
-                      child: FloatingActionButton(
-                        backgroundColor:
-                            navigationMode ? Colors.blue : Colors.grey,
-                        foregroundColor: Colors.white,
-                        onPressed: () {
-                          setState(
-                            () {
-                              navigationMode = !navigationMode;
-                              _centerOnLocationUpdate = navigationMode
-                                  ? CenterOnLocationUpdate.always
-                                  : CenterOnLocationUpdate.never;
-                              _turnOnHeadingUpdate = navigationMode
-                                  ? TurnOnHeadingUpdate.always
-                                  : TurnOnHeadingUpdate.never;
+                      ],
+                      nonRotatedChildren: [
+                        Positioned(
+                          right: 20,
+                          bottom: 20,
+                          child: FloatingActionButton(
+                            backgroundColor:
+                                navigationMode ? Colors.blue : Colors.grey,
+                            foregroundColor: Colors.white,
+                            onPressed: () {
+                              setState(
+                                () {
+                                  navigationMode = !navigationMode;
+                                  _centerOnLocationUpdate = navigationMode
+                                      ? CenterOnLocationUpdate.always
+                                      : CenterOnLocationUpdate.never;
+                                  _turnOnHeadingUpdate = navigationMode
+                                      ? TurnOnHeadingUpdate.always
+                                      : TurnOnHeadingUpdate.never;
+                                },
+                              );
+                              if (navigationMode) {
+                                _centerCurrentLocationStreamController.add(18);
+                                _turnHeadingUpStreamController.add(null);
+                              }
                             },
-                          );
-                          if (navigationMode) {
-                            _centerCurrentLocationStreamController.add(18);
-                            _turnHeadingUpStreamController.add(null);
-                          }
-                        },
-                        child: const Icon(
-                          Icons.navigation_outlined,
-                        ),
-                      ),
-                    )
-                  ],
-                );
-              } else if (snapshot.hasError) {
-                return Text('${snapshot.error}');
-              }
+                            child: const Icon(
+                              Icons.navigation_outlined,
+                            ),
+                          ),
+                        )
+                      ],
+                    );
+                  } else if (snapshot.hasError) {
+                    return Text('${snapshot.error}');
+                  }
 
-              return const Center(
-               
-                child:  CircularProgressIndicator(),
-              );
-            })
-            :Center(
-              
-              child: Container(
-                padding: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.3),
-                child: Column(
-                  children:  [
-                    Text(metaData),
-                    const CircularProgressIndicator(),
-                  ],
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                })
+            : Center(
+                child: Container(
+                  padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * 0.3),
+                  child: Column(
+                    children: [
+                      Text(metaData),
+                      const CircularProgressIndicator(),
+                    ],
+                  ),
                 ),
               ),
-            ),
       ),
     );
   }

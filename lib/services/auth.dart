@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:medfarm/services/model/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
@@ -17,8 +20,9 @@ class AuthService{
   //login using email and password.
 
   Future login(String email,String password)async{
-    SharedPreferences preferences = await SharedPreferences.getInstance();
+   
       try {
+         SharedPreferences preferences = await SharedPreferences.getInstance();
           UserCredential result=await _auth.signInWithEmailAndPassword(email: email, password: password);
           preferences.setString('email', email);
           return result.user;
@@ -29,8 +33,9 @@ class AuthService{
   }
   //Register using email and password.
   Future sigup(String email,String password,String username,String? bloodgroup, String address,int? mobile,String? dob,String? gender) async{
-    SharedPreferences preferences = await SharedPreferences.getInstance();
+   
       try{
+         SharedPreferences preferences = await SharedPreferences.getInstance();
         await _auth.createUserWithEmailAndPassword(email: email, password: password).then((value) {
           FirebaseFirestore.instance.collection('users').doc(value.user!.uid).set({
           'email':email,          
@@ -44,6 +49,7 @@ class AuthService{
         });
         }); 
         preferences.setString('email', email);
+        preferences.setString('access', 'User');
         return user;
       }on FirebaseAuthException catch (e) {
          print(e.code);
@@ -63,6 +69,34 @@ class AuthService{
         return e;
       }
   }
-  //forgot password
+
+
   
+  Future deleteAccount(String email,String password)async{
+  try {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    User? user= _auth.currentUser;
+
+    AuthCredential credential=EmailAuthProvider.credential(email: email, password: password);
+
+    await user!.reauthenticateWithCredential(credential).then((value) async{
+      String id=value.user!.uid;
+      String? access=preferences.getString('access');
+      print(id);
+      value.user!.delete().then((value) => {
+        FirebaseFirestore.instance.collection('users').doc(id).delete().then((value) => {
+          if(access=="Doctor-Pending"){
+              FirebaseFirestore.instance.collection('pendingdoctors').doc(id).delete()
+          }
+        })
+
+        
+      });
+    });
+    return "Delete";
+  } catch (e) {
+    print(e);
+    return null;
+  }
+  }
 }

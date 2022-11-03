@@ -1,9 +1,9 @@
-class Location {
+class GetLocation {
   List<Features>? features;
 
-  Location({this.features});
+  GetLocation({this.features});
 
-  Location.fromJson(Map<String, dynamic> json) {
+  GetLocation.fromJson(Map<String, dynamic> json) {
     if (json['features'] != null) {
       features = <Features>[];
       json['features'].forEach((v) {
@@ -55,7 +55,6 @@ class Geometry {
         coordinates!.add(v);
       });
     }
-   
   }
 
   Map<String, dynamic> toJson() {
@@ -63,7 +62,7 @@ class Geometry {
     if (coordinates != null) {
       data['coordinates'] = coordinates!.map((v) => v).toList();
     }
-    
+
     return data;
   }
 }

@@ -18,7 +18,7 @@ import 'package:medfarm/screens/home/Pharmacy/pharmacypage.dart';
 import 'package:medfarm/screens/home/navigation/mydrawer.dart';
 import 'package:medfarm/services/profile.dart';
 
-import '../../services/model/user.dart';
+// import '../../services/model/user.dart';
 
 // ignore: must_be_immutable
 class Home extends StatefulWidget {
