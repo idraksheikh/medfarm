@@ -4,7 +4,7 @@ import 'package:medfarm/screens/authentication/authenticate.dart';
 // import 'package:medfarm/screens/starting.dart';
 import 'package:provider/provider.dart';
 // import 'package:shared_preferences/shared_preferences.dart';
-import './home/doctor_registration.dart';
+import 'package:medfarm/screens/home/Doctor/doctor_registration.dart';
 import './home/home.dart';
 
 // int? aScreen;

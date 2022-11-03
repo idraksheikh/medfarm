@@ -1,12 +1,15 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:medfarm/services/model/doctorinfo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 // import './model/user.dart';
 class DoctorService{
   final FirebaseAuth _auth=FirebaseAuth.instance;
   var userDocumentList= FirebaseFirestore.instance.collection('users');
   var doctorDocumentList= FirebaseFirestore.instance.collection('pendingdoctors');
-
+  
   Future registerDoctor(String? name,String? address,String certificate,String? degree,String? specialisation)async{
      try {
       SharedPreferences preferences = await SharedPreferences.getInstance();
@@ -34,4 +37,6 @@ class DoctorService{
     }
 
   }
+
+  
 }

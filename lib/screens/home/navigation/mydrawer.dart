@@ -2,6 +2,7 @@
 // import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:medfarm/screens/home/Doctor/doctorrequest.dart';
 import 'package:medfarm/screens/home/home.dart';
 import 'package:medfarm/screens/home/Profile/profile.dart';
 import 'package:medfarm/services/auth.dart';
@@ -135,7 +136,7 @@ class _MyDrawerState extends State<MyDrawer> {
               admin?
               ListTile(
                 onTap: ((){
-                  // Navigator.push(context, MaterialPageRoute(builder: ((context) =>  ProfilePage())));
+                  Navigator.push(context, MaterialPageRoute(builder: ((context) =>  DoctorRequest())));
                 }),
                 leading: const Icon(
                   CupertinoIcons.doc,

@@ -28,7 +28,7 @@ class _DoctorRegistrationPage extends State<DoctorRegistrationPage> {
     String? address;
     String? degree;
     String? specialisation;
-    bool _showregbutton= false;
+    bool _showregbutton= true;
   final DoctorService _doctor=DoctorService();
   @override
   Widget build(BuildContext context) {
@@ -263,7 +263,7 @@ class _DoctorRegistrationPage extends State<DoctorRegistrationPage> {
                         if (file != null) {
                           if (_formkey.currentState!.validate()) {
                             setState(() {
-                              _showregbutton=true;
+                              _showregbutton=false;
                             });
                             String certificateAdd = await uploadFile();
                             // ignore: unrelated_type_equality_checks
@@ -277,7 +277,7 @@ class _DoctorRegistrationPage extends State<DoctorRegistrationPage> {
                               else{
                                 print("error occured");
                                 setState(() {
-                                  _showregbutton=false;
+                                  _showregbutton=true;
                                 });
                               }
                             }
@@ -291,7 +291,7 @@ class _DoctorRegistrationPage extends State<DoctorRegistrationPage> {
                         }
                       } catch (e) {
                         setState(() {
-                          _showregbutton=false;
+                          _showregbutton=true;
                         });
                          ScaffoldMessenger.of(context).showSnackBar(
                          SnackBar(

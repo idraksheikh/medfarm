@@ -4,7 +4,7 @@
 // import 'package:flutter/foundation.dart';
 import 'package:medfarm/screens/home/Profile/deleteaccount.dart';
 import 'package:medfarm/screens/home/Profile/editprofile.dart';
-import 'package:medfarm/screens/home/doctor_registration.dart';
+import 'package:medfarm/screens/home/Doctor/doctor_registration.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../services/profile.dart';
 import 'package:flutter/material.dart';
