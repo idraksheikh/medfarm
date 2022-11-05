@@ -8,7 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class DoctorService{
   final FirebaseAuth _auth=FirebaseAuth.instance;
   var userDocumentList= FirebaseFirestore.instance.collection('users');
-  var doctorDocumentList= FirebaseFirestore.instance.collection('pendingdoctors');
+  var doctorDocumentList= FirebaseFirestore.instance.collection('doctors');
   
   Future registerDoctor(String? name,String? address,String certificate,String? degree,String? specialisation)async{
      try {
@@ -27,9 +27,9 @@ class DoctorService{
 
     });
     await userDocumentList.doc(id).update({
-      'access':"Doctor-Pending",
+      'access':"Doctor",
     });
-    preferences.setString('access', "Doctor-Pending");
+    preferences.setString('access', "Doctor");
     return "true";
     }catch(e){
         print(e);

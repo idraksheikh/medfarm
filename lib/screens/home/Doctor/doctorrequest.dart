@@ -22,16 +22,54 @@ class DoctorRequest extends StatefulWidget {
 class _DoctorRequest extends State<DoctorRequest> {
   _DoctorRequest();
   final ProfileService _profile = ProfileService();
-  var doctorDocumentList= FirebaseFirestore.instance.collection('pendingdoctors');
+  var doctorDocumentList= FirebaseFirestore.instance.collection('doctors');
   
  
    Stream<List<DoctorInfo>> showDoctorsProfile(){
         return doctorDocumentList.snapshots().map((snapshot) => snapshot.docs.map((doc) => DoctorInfo.fromJson(doc.data())).toList());
     } 
    
-  Widget buildDoctor(DoctorInfo doctor)=>  ListTile(
-      title: Text(doctor.doctorname!),
-    );
+  Widget buildDoctor(DoctorInfo doctor)=> GestureDetector(
+    child: Container(
+      
+      height: 90,
+        margin: const EdgeInsets.only(top: 10),
+        decoration: BoxDecoration(
+            color: Colors.white, borderRadius: BorderRadius.circular(5)),
+            child: Column(
+              children: [
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('${doctor.doctorname}'),
+                  ],
+                ),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('${doctor.degree}'),
+                  ],
+                ),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('${doctor.specialisation}'),
+                  ],
+                ),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('${doctor.address}'),
+                  ],
+                ),
+              ],
+            ),
+    ),
+  );
 
   @override
   Widget build(BuildContext context) {

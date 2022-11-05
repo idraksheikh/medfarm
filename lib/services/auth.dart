@@ -85,7 +85,7 @@ class AuthService{
       print(id);
       value.user!.delete().then((value) => {
         FirebaseFirestore.instance.collection('users').doc(id).delete().then((value) => {
-          if(access=="Doctor-Pending"){
+          if(access=="Doctor"){
               FirebaseFirestore.instance.collection('pendingdoctors').doc(id).delete()
           }
         })

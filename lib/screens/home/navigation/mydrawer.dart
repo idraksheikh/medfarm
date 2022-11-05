@@ -26,20 +26,20 @@ class _MyDrawerState extends State<MyDrawer> {
   late Future<UserData?> userData;
    bool admin=false;
  _MyDrawerState();
-    Future<void> isAdmin()async{
-      SharedPreferences preferences = await SharedPreferences.getInstance();
-      if(preferences.getString('access')=="Admin"){
-        setState(() {
-          admin=true;
-        });
-      }
-      else{
-        setState(() {
-          admin=false;
-        });
-      }
+    // Future<void> isAdmin()async{
+    //   SharedPreferences preferences = await SharedPreferences.getInstance();
+    //   if(preferences.getString('access')=="Admin"){
+    //     setState(() {
+    //       admin=true;
+    //     });
+    //   }
+    //   else{
+    //     setState(() {
+    //       admin=false;
+    //     });
+    //   }
       
-    }
+    // }
     
     Future<UserData?> takeValue()async{
     
@@ -47,7 +47,7 @@ class _MyDrawerState extends State<MyDrawer> {
       SharedPreferences preferences = await SharedPreferences.getInstance();
       var res=await _profile.showProfile(preferences.getString('email'));
       print(res.toString());
-      isAdmin();
+      // isAdmin();
       return  res;
     } catch (e) {
       print("error occured");
@@ -133,26 +133,26 @@ class _MyDrawerState extends State<MyDrawer> {
                 ),
               ),
               
-              admin?
-              ListTile(
-                onTap: ((){
-                  Navigator.push(context, MaterialPageRoute(builder: ((context) =>  DoctorRequest())));
-                }),
-                leading: const Icon(
-                  CupertinoIcons.doc,
-                  color: Colors.white,
-                ),
-                title: const 
-                Text(
-                  "Doctors request",
-                  textScaleFactor: 1.5,
-                  style: TextStyle(color: Colors.white),
-                ),
-              ):const Text('',
-              style: TextStyle(
-                fontSize: 1,
-              ),
-              ),
+              // admin?
+              // ListTile(
+              //   onTap: ((){
+              //     Navigator.push(context, MaterialPageRoute(builder: ((context) =>  DoctorRequest())));
+              //   }),
+              //   leading: const Icon(
+              //     CupertinoIcons.doc,
+              //     color: Colors.white,
+              //   ),
+              //   title: const 
+              //   Text(
+              //     "Doctors request",
+              //     textScaleFactor: 1.5,
+              //     style: TextStyle(color: Colors.white),
+              //   ),
+              // ):const Text('',
+              // style: TextStyle(
+              //   fontSize: 1,
+              // ),
+              // ),
               
               ListTile(
                 onTap: (()async{
