@@ -2,7 +2,7 @@
 // import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:medfarm/screens/home/Doctor/doctorrequest.dart';
+import 'package:medfarm/screens/home/Doctor/viewappointment.dart';
 import 'package:medfarm/screens/home/home.dart';
 import 'package:medfarm/screens/home/Profile/profile.dart';
 import 'package:medfarm/services/auth.dart';
@@ -24,22 +24,22 @@ class _MyDrawerState extends State<MyDrawer> {
   final AuthService _auth=AuthService();
   final ProfileService _profile=ProfileService();
   late Future<UserData?> userData;
-   bool admin=false;
+   bool doctor=false;
  _MyDrawerState();
-    // Future<void> isAdmin()async{
-    //   SharedPreferences preferences = await SharedPreferences.getInstance();
-    //   if(preferences.getString('access')=="Admin"){
-    //     setState(() {
-    //       admin=true;
-    //     });
-    //   }
-    //   else{
-    //     setState(() {
-    //       admin=false;
-    //     });
-    //   }
+    Future<void> isDoctor()async{
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      if(preferences.getString('access')=="Doctor"){
+        setState(() {
+          doctor=true;
+        });
+      }
+      else{
+        setState(() {
+          doctor=false;
+        });
+      }
       
-    // }
+    }
     
     Future<UserData?> takeValue()async{
     
@@ -133,10 +133,10 @@ class _MyDrawerState extends State<MyDrawer> {
                 ),
               ),
               
-              // admin?
+              // doctor?
               // ListTile(
               //   onTap: ((){
-              //     Navigator.push(context, MaterialPageRoute(builder: ((context) =>  DoctorRequest())));
+              //     Navigator.push(context, MaterialPageRoute(builder: ((context) =>  ViewAppointment())));
               //   }),
               //   leading: const Icon(
               //     CupertinoIcons.doc,

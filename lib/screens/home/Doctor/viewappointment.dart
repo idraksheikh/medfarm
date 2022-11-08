@@ -5,28 +5,33 @@
 
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
 import '../../../services/model/doctorinfo.dart';
 import '../../../services/profile.dart';
 import 'package:flutter/material.dart';
-import '../../../services/model/user.dart';
+// import '../../../services/model/user.dart';
 
 // import 'doctor_registration.dart';
-class DoctorRequest extends StatefulWidget {
-  DoctorRequest({Key? key}) : super(key: key);
+class ViewAppointment extends StatefulWidget {
+  ViewAppointment({Key? key}) : super(key: key);
 
   @override
-  State createState() => _DoctorRequest();
+  State createState() => _ViewAppointment();
 }
 
-class _DoctorRequest extends State<DoctorRequest> {
-  _DoctorRequest();
+class _ViewAppointment extends State<ViewAppointment> {
+  _ViewAppointment();
   final ProfileService _profile = ProfileService();
-  var doctorDocumentList= FirebaseFirestore.instance.collection('doctors');
+  var appointmentDocumentList= FirebaseFirestore.instance.collection('appointments');
   
  
    Stream<List<DoctorInfo>> showDoctorsProfile(){
-        return doctorDocumentList.snapshots().map((snapshot) => snapshot.docs.map((doc) => DoctorInfo.fromJson(doc.data())).toList());
+    final FirebaseAuth _auth= FirebaseAuth.instance;
+    User? user= _auth.currentUser;
+    String? email=user!.email;
+        return appointmentDocumentList.snapshots().map((snapshot) => snapshot.docs.map((doc) => DoctorInfo.fromJson(doc.data())).toList());
+        // return appointmentDocumentList.where('doctorname',isEqualTo:name).get().then((value) => value.docs.map((doc) => DoctorInfo.fromJson(doc.data())).toList());
     } 
    
   Widget buildDoctor(DoctorInfo doctor)=> GestureDetector(

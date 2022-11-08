@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:medfarm/services/model/doctorinfo.dart';
+import 'package:medfarm/services/profile.dart';
 
 class DoctorClinic extends StatefulWidget {
   const DoctorClinic({Key? key}) : super(key: key);
@@ -11,6 +14,15 @@ class _DoctorClinic extends State<DoctorClinic> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
+     
+  var doctorDocumentList= FirebaseFirestore.instance.collection('doctors');
+  
+ 
+   Stream<List<DoctorInfo>> showDoctorsProfile(){
+        return doctorDocumentList.snapshots().map((snapshot) => snapshot.docs.map((doc) => DoctorInfo.fromJson(doc.data())).toList());
+    } 
+  
 
     return Scaffold(
        resizeToAvoidBottomInset: false,
@@ -134,19 +146,7 @@ class _DoctorClinic extends State<DoctorClinic> {
                             fontWeight: FontWeight.w700),
                       ),
                     ),
-                    Container(
-                      margin: const EdgeInsets.only(right: 20, top: 1),
-                      child: const Align(
-                        alignment: Alignment.centerRight,
-                        child: Text(
-                          "See All",
-                          style: TextStyle(
-                            color: Color(0xff363636),
-                            fontSize: 17,
-                          ),
-                        ),
-                      ),
-                    )
+                    
                   ],
                 ),
               ),
@@ -184,35 +184,37 @@ class _DoctorClinic extends State<DoctorClinic> {
                             fontWeight: FontWeight.w700),
                       ),
                     ),
-                    Container(
-                      margin: const EdgeInsets.only(right: 20, top: 1),
-                      child: const Align(
-                        alignment: Alignment.centerRight,
-                        child: Text(
-                          "See All",
-                          style: TextStyle(
-                            color: Color(0xff363636),
-                            fontSize: 17,
-                          ),
-                        ),
-                      ),
-                    )
+                    
                   ],
                 ),
               ),
               Expanded(
                 child: Container(
                   margin: const EdgeInsets.only(left: 20, right: 20),
-                  child: ListView(
-                    children: [
-                      demoTopRatedDr("lib/images/heart.jpeg",
-                          "Dr. Gupreet Singh", "MD Physician", "5"),
-                      demoTopRatedDr("lib/images/heart.jpeg",
-                          "Dr. Ashwin Khale", "Nephrologist", "5"),
-                      demoTopRatedDr("lib/images/heart.jpeg",
-                          "Dr. Abdul ", "MD Physician", "5"),
-                     
-                    ],
+                  child: StreamBuilder<List<DoctorInfo>>(
+                    stream: showDoctorsProfile(),
+                    builder:(context,snapshot){
+                      if(snapshot.hasData){
+                        final doctors=snapshot.data!;
+                        return ListView(
+                      children:doctors.map(buildDoctor).toList(),
+                    );
+                      }
+                      else{
+                        return ListView(
+                      children: [
+                        demoTopRatedDr("lib/images/heart.jpeg",
+                            "Dr. Gupreet Singh", "MD Physician", "5"),
+                        demoTopRatedDr("lib/images/heart.jpeg",
+                            "Dr. Ashwin Khale", "Nephrologist", "5"),
+                        demoTopRatedDr("lib/images/heart.jpeg",
+                            "Dr. Abdul ", "MD Physician", "5"),
+                       
+                      ],
+                    );
+                      }
+                      
+                    } 
                   ),
                 ),
               ),
@@ -349,4 +351,8 @@ class _DoctorClinic extends State<DoctorClinic> {
       ),
     );
   }
+
+   Widget buildDoctor(DoctorInfo doctor){
+    return demoTopRatedDr("lib/images/heart.jpeg", doctor.doctorname!,doctor.specialisation!, "5");
+   }
 }

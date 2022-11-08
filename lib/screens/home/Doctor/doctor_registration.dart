@@ -74,39 +74,39 @@ class _DoctorRegistrationPage extends State<DoctorRegistrationPage> {
               child: Form(
                 key: _formkey,
                 child: Column(children: [
-                  const SizedBox(
-                    height: 5,
-                  ),
+                  // const SizedBox(
+                  //   height: 5,
+                  // ),
 
                   //Name field
 
-                  TextFormField(
-                    style: const TextStyle(color: Colors.black),
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Name Of Doctor',
-                      prefixIcon: Icon(
-                        Icons.man,
-                        color: Colors.blue,
-                      ),
-                    ),
-                    onChanged: ((val) {
-                              setState(() {
-                                doctorname = val;
-                              });
-                            }),
-                    textInputAction: TextInputAction.next,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Please enter the value";
-                      } else if ((value.contains(RegExp(r'[0-9]'))) ||
-                          (!value.contains(
-                              RegExp(r"^[_A-z]*((-|\s)*[_A-z])*$")))) {
-                        return "Please enter valid name";
-                      }
-                      return null;
-                    },
-                  ),
+                  // TextFormField(
+                  //   style: const TextStyle(color: Colors.black),
+                  //   decoration: const InputDecoration(
+                  //     border: OutlineInputBorder(),
+                  //     labelText: 'Name Of Doctor',
+                  //     prefixIcon: Icon(
+                  //       Icons.man,
+                  //       color: Colors.blue,
+                  //     ),
+                  //   ),
+                  //   onChanged: ((val) {
+                  //             setState(() {
+                  //               doctorname = val;
+                  //             });
+                  //           }),
+                  //   textInputAction: TextInputAction.next,
+                  //   validator: (value) {
+                  //     if (value == null || value.isEmpty) {
+                  //       return "Please enter the value";
+                  //     } else if ((value.contains(RegExp(r'[0-9]'))) ||
+                  //         (!value.contains(
+                  //             RegExp(r"^[_A-z]*((-|\s)*[_A-z])*$")))) {
+                  //       return "Please enter valid name";
+                  //     }
+                  //     return null;
+                  //   },
+                  // ),
                   const SizedBox(
                     height: 20,
                   ),
@@ -135,9 +135,9 @@ class _DoctorRegistrationPage extends State<DoctorRegistrationPage> {
                       return null;
                     },
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
+                  // const SizedBox(
+                  //   height: 20,
+                  // ),
 
                   //Specialisation
                   const SizedBox(
@@ -269,7 +269,7 @@ class _DoctorRegistrationPage extends State<DoctorRegistrationPage> {
                             // ignore: unrelated_type_equality_checks
                             if(certificateAdd !=Null){
                               
-                              dynamic res=await _doctor.registerDoctor(doctorname, address, certificateAdd, degree, specialisation);
+                              dynamic res=await _doctor.registerDoctor(address, certificateAdd, degree, specialisation);
                               if(res=="true"){
                                 Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ProfilePage()));
 
