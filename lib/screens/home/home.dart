@@ -10,12 +10,12 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:medfarm/screens/home/BMI/bmi.dart';
 import 'package:medfarm/screens/home/Emergency/polyline.dart';
 
-import 'package:medfarm/screens/home/dashboard.dart';
+import 'package:medfarm/screens/home/Dashboard/dashboard.dart';
 import 'package:medfarm/screens/home/Doctor/doctorclinic.dart';
 // import 'package:medfarm/screens/home/Emergency/emergency.dart';
-import 'package:medfarm/screens/home/guide.dart';
+import 'package:medfarm/screens/home/Guide/guide.dart';
 import 'package:medfarm/screens/home/Pharmacy/pharmacypage.dart';
-import 'package:medfarm/screens/home/navigation/mydrawer.dart';
+import 'package:medfarm/screens/home/Navigation/mydrawer.dart';
 import 'package:medfarm/services/profile.dart';
 
 // import '../../services/model/user.dart';
@@ -50,7 +50,7 @@ class _HomeState extends State<Home> {
    
   _HomeState( this.forTap);
 
-  
+    var scaffoldKey = GlobalKey<ScaffoldState>();
     
    @override
   void initState() {
@@ -66,7 +66,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
+      key: scaffoldKey,
       drawerEnableOpenDragGesture: true,
        resizeToAvoidBottomInset: false,
       body: PageStorage(

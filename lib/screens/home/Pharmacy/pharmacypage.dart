@@ -79,6 +79,7 @@ class _PharmacyPage extends State<PharmacyPage> {
                   ),
                   child: Column(
                     children: [
+                      
                       TextFormField(
                         decoration: InputDecoration(
                           fillColor: Colors.white,
@@ -104,13 +105,13 @@ class _PharmacyPage extends State<PharmacyPage> {
                       Container(
                         alignment: Alignment.center,
                         height: 100,
-                        margin: const EdgeInsets.only(top: 20, left: 20),
+                        margin: const EdgeInsets.only(top:10,left: 20,bottom: 10),
                         child: ListView(
                           scrollDirection: Axis.horizontal,
                           children: [
-                            demoCategories("lib/images/tooth.png", "Fever"),
-                            demoCategories("lib/images/brain.png", "Cough"),
-                            demoCategories("lib/images/heart.png", "Cold"),
+                            demoCategories("lib/images/fever.png","Fever"),
+                            demoCategories("lib/images/headache.png","Headaches"),
+                            demoCategories("lib/images/cough.png","Cough"),
                           ],
                         ),
                       ),
@@ -251,7 +252,9 @@ class _PharmacyPage extends State<PharmacyPage> {
                                         .toList(),
                                   );
                                 } else if (snapshot.hasError) {
-                                  return Text('${snapshot.error}');
+                                  return const  Center(
+                                    child:Text('Some Error Occured'),
+                                  ); 
                                 }
 
                                 return Container(
@@ -259,8 +262,10 @@ class _PharmacyPage extends State<PharmacyPage> {
                                       vertical:
                                           (MediaQuery.of(context).size.height *
                                               0.06)),
-                                  child: const CircularProgressIndicator(
+                                  child: const Center(
+                                    child:  CircularProgressIndicator(
                                     color: Colors.blue,
+                                  ),
                                   ),
                                 );
                               })
@@ -284,40 +289,75 @@ class _PharmacyPage extends State<PharmacyPage> {
     );
   }
 
-  Widget demoCategories(String image, String nameMedicine) {
+  Widget demoCategories(String image,String nameMedicine) {
     return InkWell(
       onTap: () {
         if (nameMedicine == "Fever") {
           searchMedicine("Dolo");
         } else if (nameMedicine == "Cough") {
           searchMedicine("Cheston Cold");
-        } else if (nameMedicine == "Cold") {
-          searchMedicine("Cheston Cold");
+        } else if (nameMedicine == "Headaches") {
+          searchMedicine("Disprine");
         }
       },
       child: Container(
         margin: const EdgeInsets.only(right: 15),
         width: 80,
         decoration: BoxDecoration(
-          color: Colors.blue.shade900,
+          border: Border(
+            top:BorderSide(
+              color:Colors.blue.shade500,
+              width: 3,
+              style: BorderStyle.solid,
+            ),
+            left:BorderSide(
+              color:Colors.blue.shade500,
+              width: 3,
+              style: BorderStyle.solid,
+            ),
+            right:BorderSide(
+              color:Colors.blue.shade500,
+              width: 3,
+              style: BorderStyle.solid,
+            ),
+            bottom:BorderSide(
+              color:Colors.blue.shade500,
+              width: 3,
+              style: BorderStyle.solid,
+            ),
+          ),
+          color: Colors.blue.shade500,
           borderRadius: BorderRadius.circular(10),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Container(
-              child: Image.asset(image),
-            ),
-            Container(
-              margin: const EdgeInsets.only(top: 10),
-              child: Text(nameMedicine,
-                  style: const TextStyle(
+        child: Container(
+          
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                height: 50,
+                width: 50,
+                decoration:BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(image),
+                    fit: BoxFit.fill,
+                  ),
+                ),
+              ),
+              Center(
+                child:Text(nameMedicine,
+               
+                  style: const  TextStyle(
+                    
                       color: Colors.white,
                       fontSize: 13,
-                      fontWeight: FontWeight.w500)),
-            ),
-          ],
+                      fontWeight: FontWeight.w500,
+                      
+                      )),
+              ),
+            ],
+          ),
         ),
       ),
     );

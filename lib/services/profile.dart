@@ -18,7 +18,7 @@ class ProfileService {
           userData=UserData.fromJson(snapshot.docs[0].data());
         
         });
-        preferences.setString('access', userData.access!);
+        await preferences.setString('access', userData.access!);
         return userData;
         
     }on FirebaseException catch (e) {

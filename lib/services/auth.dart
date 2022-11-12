@@ -49,7 +49,7 @@ class AuthService{
         });
         }); 
         preferences.setString('email', email);
-        preferences.setString('name', username);
+        
         preferences.setString('access', 'User');
         return user;
       }on FirebaseAuthException catch (e) {

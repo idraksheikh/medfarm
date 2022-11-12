@@ -2,8 +2,10 @@
 // import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:medfarm/screens/home/Appointment/viewDoctorAppointment.dart';
+import 'package:medfarm/screens/home/Appointment/viewUserAppointment.dart';
 import 'package:medfarm/screens/home/Doctor/viewappointment.dart';
-import 'package:medfarm/screens/home/home.dart';
+// import 'package:medfarm/screens/home/home.dart';
 import 'package:medfarm/screens/home/Profile/profile.dart';
 import 'package:medfarm/services/auth.dart';
 import 'package:medfarm/services/model/user.dart';
@@ -65,7 +67,7 @@ class _MyDrawerState extends State<MyDrawer> {
       userData=takeValue();
       
     });
-    
+    isDoctor();
     
   }
   @override
@@ -129,31 +131,55 @@ class _MyDrawerState extends State<MyDrawer> {
                 Text(
                   "Profile",
                   textScaleFactor: 1.5,
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 12,
+                    ),
                 ),
               ),
               
-              // doctor?
-              // ListTile(
-              //   onTap: ((){
-              //     Navigator.push(context, MaterialPageRoute(builder: ((context) =>  ViewAppointment())));
-              //   }),
-              //   leading: const Icon(
-              //     CupertinoIcons.doc,
-              //     color: Colors.white,
-              //   ),
-              //   title: const 
-              //   Text(
-              //     "Doctors request",
-              //     textScaleFactor: 1.5,
-              //     style: TextStyle(color: Colors.white),
-              //   ),
-              // ):const Text('',
-              // style: TextStyle(
-              //   fontSize: 1,
-              // ),
-              // ),
-              
+              doctor?
+              ListTile(
+                onTap: ((){
+                  Navigator.push(context, MaterialPageRoute(builder: ((context) =>  ViewDoctorAppointment())));
+                }),
+                leading: const Icon(
+                  Icons.note,
+                  color: Colors.white,
+                ),
+                title: const 
+                Text(
+                  "Patients Appointments",
+                  textScaleFactor: 1.5,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 12,
+                    ),
+                ),
+              ):const Text('',
+              style: TextStyle(
+                fontSize: 1,
+              ),
+              ),
+              ListTile(
+                onTap: ((){
+                  Navigator.push(context, MaterialPageRoute(builder: ((context) =>  ViewUserAppointment())));
+                }),
+                leading: const Icon(
+                  CupertinoIcons.doc,
+                  color: Colors.white,
+                ),
+                title: const 
+                Text(
+                  "Your Appointments",
+                  textScaleFactor: 1.5,
+
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 12,
+                    ),
+                ),
+              ),
               ListTile(
                 onTap: (()async{
                   try {
@@ -172,7 +198,10 @@ class _MyDrawerState extends State<MyDrawer> {
                 title: const  Text(
                   "Logout",
                   textScaleFactor: 1.5,
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 12,
+                    ),
                 ),
               )
             ],
