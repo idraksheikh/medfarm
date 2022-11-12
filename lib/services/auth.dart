@@ -49,6 +49,7 @@ class AuthService{
         });
         }); 
         preferences.setString('email', email);
+        preferences.setString('name', username);
         preferences.setString('access', 'User');
         return user;
       }on FirebaseAuthException catch (e) {
@@ -83,15 +84,12 @@ class AuthService{
       String id=value.user!.uid;
       String? access=preferences.getString('access');
       print(id);
-      value.user!.delete().then((value) => {
-        FirebaseFirestore.instance.collection('users').doc(id).delete().then((value) => {
+      await FirebaseFirestore.instance.collection('users').doc(id).delete().then((value) => {
           if(access=="Doctor"){
               FirebaseFirestore.instance.collection('doctors').doc(id).delete()
           }
-        })
-
-        
-      });
+        });
+      value.user!.delete();
     });
     return "Delete";
   } catch (e) {

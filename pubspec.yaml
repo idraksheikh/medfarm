@@ -58,6 +58,7 @@ dependencies:
   email_auth: ^1.0.0
   shared_preferences: ^2.0.15
   flutter_map_marker_popup: ^4.0.0
+  table_calendar: ^3.0.8
   
 
 dev_dependencies:

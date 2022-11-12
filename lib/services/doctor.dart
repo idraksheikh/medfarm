@@ -1,7 +1,8 @@
-import 'dart:convert';
+// import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:medfarm/services/model/doctorinfo.dart';
 import 'package:medfarm/services/model/user.dart';
 // import 'package:medfarm/services/model/doctorinfo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -11,6 +12,31 @@ class DoctorService{
   var userDocumentList= FirebaseFirestore.instance.collection('users');
   var doctorDocumentList= FirebaseFirestore.instance.collection('doctors');
   var appointmentDocumentList= FirebaseFirestore.instance.collection('appointments');
+
+  
+  Future showDoctorProfile(String? email)async{
+    try {
+      late DoctorInfo doctorInfo;
+      
+        await doctorDocumentList.where("email",isEqualTo: email).get().then((snapshot){
+          
+          print(snapshot.docs[0].data());
+          doctorInfo=DoctorInfo.fromJson(snapshot.docs[0].data());
+        
+        });
+        
+        return doctorInfo;
+        
+    }on FirebaseException catch (e) {
+      print(e.code);
+      return e.toString();      
+    }catch(e){
+      print(e);
+      return e.toString();
+
+    }   
+
+  }
   
   Future registerDoctor(String? address,String certificate,String? degree,String? specialisation)async{
      try {

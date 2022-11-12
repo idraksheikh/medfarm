@@ -71,7 +71,7 @@ class _PharmacyPage extends State<PharmacyPage> {
                   // width: double.infinity,
 
                   padding: const EdgeInsets.all(20),
-                  height: MediaQuery.of(context).size.height * 0.15,
+                  height: MediaQuery.of(context).size.height * 0.3,
                   decoration: BoxDecoration(
                     color: Colors.blue.shade600,
                     borderRadius: const BorderRadius.vertical(
@@ -101,11 +101,24 @@ class _PharmacyPage extends State<PharmacyPage> {
                           searchMedicine(nameMedicine);
                         },
                       ),
+                      Container(
+                        alignment: Alignment.center,
+                        height: 100,
+                        margin: const EdgeInsets.only(top: 20, left: 20),
+                        child: ListView(
+                          scrollDirection: Axis.horizontal,
+                          children: [
+                            demoCategories("lib/images/tooth.png", "Fever"),
+                            demoCategories("lib/images/brain.png", "Cough"),
+                            demoCategories("lib/images/heart.png", "Cold"),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ),
                 Container(
-                  padding: const EdgeInsets.only(top: 10),
+                  // padding: const EdgeInsets.only(top: 10),
                   child: Column(
                     children: [
                       showMed
@@ -122,21 +135,20 @@ class _PharmacyPage extends State<PharmacyPage> {
                                               margin: const EdgeInsets.only(
                                                   top: 10, bottom: 10),
                                               shape: RoundedRectangleBorder(
-                                                side:  const BorderSide(
+                                                side: const BorderSide(
                                                   color: Colors.black,
                                                 ),
                                                 borderRadius:
                                                     BorderRadius.circular(5),
                                               ),
-
-                                              
                                               child: Container(
                                                 width: 300,
                                                 height: 180,
-                                                decoration:  BoxDecoration(
+                                                decoration: BoxDecoration(
                                                   // borderRadius:
                                                   //     BorderRadius.circular(30),
-                                                   color: Colors.grey.shade100.withOpacity(0.8),
+                                                  color: Colors.grey.shade100
+                                                      .withOpacity(0.8),
                                                 ),
                                                 child: Column(children: [
                                                   Row(children: [
@@ -148,7 +160,9 @@ class _PharmacyPage extends State<PharmacyPage> {
                                                               top: 10,
                                                               left: 10),
                                                       decoration: BoxDecoration(
-                                                        borderRadius: BorderRadius.circular(5),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(5),
                                                         image: DecorationImage(
                                                           alignment:
                                                               Alignment.topLeft,
@@ -167,9 +181,8 @@ class _PharmacyPage extends State<PharmacyPage> {
                                                       child: Text(
                                                         '${snapshot.data!.results![e].name}',
                                                         maxLines: 2,
-                                                        style: const  TextStyle(
-                                                          color: Colors
-                                                              .black,
+                                                        style: const TextStyle(
+                                                          color: Colors.black,
                                                           fontSize: 16,
                                                           fontWeight:
                                                               FontWeight.bold,
@@ -181,8 +194,10 @@ class _PharmacyPage extends State<PharmacyPage> {
                                                     children: [
                                                       InkWell(
                                                         onTap: () async {
-                                                          if(await launchUrl(Uri.parse('https://www.amazon.in/s?k=${snapshot.data!.results![e].name}&i=amazon-pharmacy'))){
-                                                              throw "could not able to launch url 'https://www.amazon.in/s?k=${snapshot.data!.results![e].name}&i=amazon-pharmacy'";
+                                                          if (await launchUrl(
+                                                              Uri.parse(
+                                                                  'https://www.amazon.in/s?k=${snapshot.data!.results![e].name}&i=amazon-pharmacy'))) {
+                                                            throw "could not able to launch url 'https://www.amazon.in/s?k=${snapshot.data!.results![e].name}&i=amazon-pharmacy'";
                                                           }
                                                         },
                                                         child: Container(
@@ -195,8 +210,12 @@ class _PharmacyPage extends State<PharmacyPage> {
                                                             height: 40,
                                                             decoration:
                                                                 BoxDecoration(
-                                                                  borderRadius: BorderRadius.circular(5),
-                                                              color: Colors.black,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          5),
+                                                              color:
+                                                                  Colors.black,
                                                             ),
                                                             child: const Center(
                                                               child: Text(
@@ -216,9 +235,9 @@ class _PharmacyPage extends State<PharmacyPage> {
                                                         child: Text(
                                                           'Price : ₹ ${snapshot.data!.results![e].price}',
                                                           maxLines: 1,
-                                                          style: const TextStyle(
-                                                            color: Colors
-                                                                .black,
+                                                          style:
+                                                              const TextStyle(
+                                                            color: Colors.black,
                                                             fontWeight:
                                                                 FontWeight.bold,
                                                           ),
@@ -240,16 +259,67 @@ class _PharmacyPage extends State<PharmacyPage> {
                                       vertical:
                                           (MediaQuery.of(context).size.height *
                                               0.06)),
-                                  child: const CircularProgressIndicator(),
+                                  child: const CircularProgressIndicator(
+                                    color: Colors.blue,
+                                  ),
                                 );
                               })
-                          : const Text(''),
+                          : Container(
+                            margin: const EdgeInsets.only(top:100),
+                              height: MediaQuery.of(context).size.height * 0.3,
+                              width: MediaQuery.of(context).size.width * 0.8,
+                              decoration: const BoxDecoration(
+                                  image: DecorationImage(
+                                      image: AssetImage(
+                                          "lib/images/pharmacyEmpty.gif"),
+                                      fit: BoxFit.cover, 
+                                          )),
+                            ),
                     ],
                   ),
                 ),
               ],
             ),
           )),
+    );
+  }
+
+  Widget demoCategories(String image, String nameMedicine) {
+    return InkWell(
+      onTap: () {
+        if (nameMedicine == "Fever") {
+          searchMedicine("Dolo");
+        } else if (nameMedicine == "Cough") {
+          searchMedicine("Cheston Cold");
+        } else if (nameMedicine == "Cold") {
+          searchMedicine("Cheston Cold");
+        }
+      },
+      child: Container(
+        margin: const EdgeInsets.only(right: 15),
+        width: 80,
+        decoration: BoxDecoration(
+          color: Colors.blue.shade900,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              child: Image.asset(image),
+            ),
+            Container(
+              margin: const EdgeInsets.only(top: 10),
+              child: Text(nameMedicine,
+                  style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 13,
+                      fontWeight: FontWeight.w500)),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
