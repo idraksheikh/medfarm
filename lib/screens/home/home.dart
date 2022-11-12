@@ -11,7 +11,7 @@ import 'package:medfarm/screens/home/BMI/bmi.dart';
 import 'package:medfarm/screens/home/Emergency/polyline.dart';
 
 import 'package:medfarm/screens/home/dashboard.dart';
-import 'package:medfarm/screens/home/doctorclinic.dart';
+import 'package:medfarm/screens/home/Doctor/doctorclinic.dart';
 // import 'package:medfarm/screens/home/Emergency/emergency.dart';
 import 'package:medfarm/screens/home/guide.dart';
 import 'package:medfarm/screens/home/Pharmacy/pharmacypage.dart';
