@@ -29,6 +29,7 @@ class _DoctorClinic extends State<DoctorClinic> {
        resizeToAvoidBottomInset: false,
       backgroundColor: Theme.of(context).primaryColor,
       appBar: AppBar(
+        title: const Text("Doctors Appointment"),
         elevation: 0.0,
         backgroundColor: Theme.of(context).primaryColor,
         centerTitle: true,

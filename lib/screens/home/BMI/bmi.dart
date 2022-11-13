@@ -31,7 +31,7 @@ void updateCal(bool isCal){
       backgroundColor: Colors.white,
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: Colors.blue.shade900,
+        backgroundColor: Colors.blue.shade600,
         title:const  Text(
           "BMI Calculator",
         ),
@@ -59,8 +59,8 @@ void updateCal(bool isCal){
                             10.0,
                           ),
                           color: isMale
-                              ? Colors.blue.shade900
-                              : Colors.blue.shade300,
+                              ? Colors.blue.shade300
+                              : Colors.blue.shade900,
                         ),
                         child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -101,8 +101,8 @@ void updateCal(bool isCal){
                             10.0,
                           ),
                           color: !isMale
-                             ? Colors.blue.shade900
-                              : Colors.blue.shade300,
+                             ? Colors.blue.shade300
+                              : Colors.blue.shade900,
                         ),
                          child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,

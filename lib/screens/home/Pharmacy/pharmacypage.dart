@@ -19,7 +19,7 @@ class _PharmacyPage extends State<PharmacyPage> {
   List<int> card = [0, 1, 2];
   Future<Medicine> fetchMedicine(String medicineName) async {
     final response = await http.get(Uri.parse(
-        'http://api.scraperapi.com/?api_key=3b86a5eeca41b365a84436fbb3913acd&autoparse=true&url=https://www.amazon.in/s?k=$medicineName&i=amazon-pharmacy'));
+        'http://api.scraperapi.com/?api_key=c76f87342697c41cc2901443f600d850&autoparse=true&url=https://www.amazon.in/s?k=$medicineName&i=amazon-pharmacy'));
 
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
@@ -57,6 +57,10 @@ class _PharmacyPage extends State<PharmacyPage> {
         backgroundColor: Colors.blue.shade600,
         elevation: 0,
         centerTitle: true,
+        leading: const Icon(
+          Icons.menu,
+          color: Colors.white,
+        ),
       ),
       body: Container(
           height: double.infinity,

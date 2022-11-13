@@ -67,6 +67,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+    
       drawerEnableOpenDragGesture: true,
        resizeToAvoidBottomInset: false,
       body: PageStorage(

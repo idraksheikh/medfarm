@@ -53,10 +53,9 @@ class _DoctorRegistrationPage extends State<DoctorRegistrationPage> {
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.transparent,
       appBar: AppBar(
-        backgroundColor: Colors.blue.shade900,
-        title: const Center(
-          child: Text('Doctor registration'),
-        ),
+        backgroundColor: Colors.blue.shade600,
+        title: const Text('Doctor registration'),
+        centerTitle: true,
       ),
       body: Container(
         decoration: const BoxDecoration(

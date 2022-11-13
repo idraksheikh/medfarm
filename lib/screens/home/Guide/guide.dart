@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:expansion_tile_card/expansion_tile_card.dart';
 
+
 class GuidePage extends StatefulWidget {
   const GuidePage({Key? key}) : super(key: key);
 
@@ -19,13 +20,18 @@ class _GuidePage extends State<GuidePage> {
   int heatSteps = 0;
   int dropSteps = 0;
   int bloodSteps = 0;
-
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blue.shade900,
+        backgroundColor: Colors.blue.shade600,
+        centerTitle: true,
         title: const Text('Guide'),
+        leading: const Icon(
+          Icons.menu,
+          color: Colors.white,
+        ),
       ),
       body: ListView(children: <Widget>[
         const SizedBox(
@@ -330,7 +336,7 @@ class _GuidePage extends State<GuidePage> {
                     backgroundImage: AssetImage("lib/images/bloodpres.jpeg"),
                   ),
                   title: const Text("High Blood Pressure"),
-                  subtitle: const Text("FIRST AID IGH BLOOD PRESSURE"),
+                  subtitle: const Text("FIRST AID HIGH BLOOD PRESSURE"),
                   children: <Widget>[
                     const Divider(
                       thickness: 1.0,

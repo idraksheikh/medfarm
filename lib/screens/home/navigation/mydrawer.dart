@@ -30,7 +30,8 @@ class _MyDrawerState extends State<MyDrawer> {
  _MyDrawerState();
     Future<void> isDoctor()async{
       SharedPreferences preferences = await SharedPreferences.getInstance();
-      if(preferences.getString('access')=="Doctor"){
+      String? access= preferences.getString('access');
+      if(access=="Doctor"){
         setState(() {
           doctor=true;
         });

@@ -8,6 +8,7 @@ class ProfileService {
   late UserData userData;
   final FirebaseAuth _auth=FirebaseAuth.instance;
   var documentList= FirebaseFirestore.instance.collection('users');
+  var doctordocumentList= FirebaseFirestore.instance.collection('doctors');
   Future showProfile(String? email)async{
     try {
       
@@ -33,8 +34,10 @@ class ProfileService {
   }
   Future updateProfile(String? username,String? address,int? mobile,String? gender,String? dob,String? bloodgroup)async{
     try {
+      SharedPreferences preferences = await SharedPreferences.getInstance();
       User? user= _auth.currentUser;
     String id=user!.uid;
+    String? access=preferences.getString('access');
     await documentList.doc(id).update({
       
                   
@@ -47,6 +50,11 @@ class ProfileService {
           
         
     });
+    if(access=="Doctor"){
+      await doctordocumentList.doc(id).update({
+        'doctorname':username,
+      });
+    }
     return "true";
     } catch (e) {
       print(e);

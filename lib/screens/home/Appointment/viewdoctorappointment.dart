@@ -33,46 +33,103 @@ class _ViewDoctorAppointment extends State<ViewDoctorAppointment> {
   }
 
   Widget buildDoctor(Appointment appointment)=> GestureDetector(
-    child: Container(
-      
-      height: 90,
-        margin: const EdgeInsets.only(top: 10),
-        decoration: BoxDecoration(
-            color: Colors.white, borderRadius: BorderRadius.circular(5)),
-            child: Column(
-              children: [
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+        child: Container(
+          height: 100,
+          margin: const EdgeInsets.only(top: 10,bottom: 10),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: Colors.lightBlue.shade100,
+          ),
+          child: Row(
+            children: [
+              Container(
+                height: 65,
+                width: 65,
+                margin: const EdgeInsets.only(left: 10),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(40),
+                    image: const DecorationImage(
+                      image: AssetImage("lib/images/appointment.gif"),
+                      fit: BoxFit.cover,
+                    )),
+              ),
+              Container(
+                width: 130,
+
+                margin: const EdgeInsets.only(left: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Patient Name : ${appointment.patientname}'),
+                    const Text(
+                      
+                      "Patient Name : ",
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Colors.white,
+                      ),
+                      
+                    ),
+                    Text(
+                      "${appointment.patientname}",
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Colors.blue.shade900,
+                      ),
+                      maxLines: 2,
+                    ),
                   ],
                 ),
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+              ),
+              Container(
+                height: 70,
+                width: 100,
+                margin: const EdgeInsets.only(left:10),
+                decoration: BoxDecoration(
+                  color: Colors.blue.shade300,
+                  borderRadius: BorderRadius.circular(10),
+                  // borderRadius:const BorderRadius.only(topRight: Radius.circular(40),bottomRight: Radius.circular(40),)
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text('Doctor Name : ${appointment.doctorname}'),
+                    Container(
+                      
+                      child: Text(
+                        "${appointment.time}",
+                        style: const TextStyle(
+                          fontSize: 15,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    Container(
+                      child: Text(
+                        "${appointment.date}",
+                        style: const TextStyle(
+                          fontSize: 15,
+                          color: Colors.white,
+                        ),
+                        ),
+                    ),
                   ],
                 ),
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Date Of Appointment : ${appointment.date}'),
-                  ],
-                ),
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Time Of Appointment : ${appointment.time}'),
-                  ],
-                ),
-              ],
-            ),
-    ),
-  );
+              ),
+              Container(
+                decoration: const BoxDecoration(
+                    image: DecorationImage(
+                  image: AssetImage("lib/images/appointment.gif"),
+                  fit: BoxFit.cover,
+                )),
+              ),
+            ],
+          ),
+        ),
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -82,6 +139,7 @@ class _ViewDoctorAppointment extends State<ViewDoctorAppointment> {
         centerTitle: true,
       ),
       body: Container(
+         padding: const EdgeInsets.only(left: 10, right: 10),
         decoration: const BoxDecoration(
             color: Colors.white,
             

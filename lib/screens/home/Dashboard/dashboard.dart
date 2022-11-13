@@ -12,7 +12,7 @@ class DashBoard extends StatefulWidget {
 }
 
 class _DashBoard extends State<DashBoard> {
-  // var scaffoldKey = GlobalKey<ScaffoldState>();
+  var scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return  Column(
